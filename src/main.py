@@ -17,6 +17,32 @@ from models.concretos.escritorio import Escritorio
 from models.concretos.cajonera import Cajonera
 from models.concretos.sofacama import SofaCama
 from models.composicion.comedor import Comedor
+from src.ui.menu import Menu
+from src.services.tienda import Tienda
+from src.models.concretos.silla import Silla  # Asumiendo que creaste Silla
+
+def main():
+    mi_tienda = Tienda("Muebles Diego")
+    
+    while True:
+        opcion = Menu.mostrar_opciones()
+        
+        if opcion == "1":
+            n, m, p = Menu.solicitar_datos_mueble()
+            # Ejemplo con una Silla (Clase concreta)
+            nuevo_mueble = Silla(n, m, p, capacidad=1)
+            mi_tienda.catalogo.agregar_mueble(nuevo_mueble)
+            print("¡Mueble agregado con éxito!")
+            
+        elif opcion == "2":
+            mi_tienda.mostrar_inventario()
+            
+        elif opcion == "3":
+            print("Saliendo del sistema...")
+            break
+
+if __name__ == "__main__":
+    main()
 
 
 def crear_catalogo_inicial(tienda: "TiendaMuebles") -> None:

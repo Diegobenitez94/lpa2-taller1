@@ -8,6 +8,12 @@ from models.mueble import Mueble
 
 
 class Asiento(Mueble, ABC):
+    def __init__(self, nombre, material, precio, capacidad):
+        super().__init__(nombre, material, precio)
+        self.capacidad = capacidad
+
+    def obtener_descripcion(self):
+        return f"{self.nombre} para {self.capacidad} personas."
     """
     Clase abstracta para todos los muebles donde las personas se sientan.
 

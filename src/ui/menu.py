@@ -16,7 +16,20 @@ import time
 # Corrección de imports para ejecución directa
 from services.tienda import TiendaMuebles
 from models.mueble import Mueble
-# TODO: Importar los servicios y modelos
+class Menu:
+    @staticmethod
+    def mostrar_opciones():
+        print("\n1. Agregar Mueble")
+        print("2. Ver Catálogo")
+        print("3. Salir")
+        return input("Seleccione una opción: ")
+
+    @staticmethod
+    def solicitar_datos_mueble():
+        nombre = input("Nombre del mueble: ")
+        material = input("Material: ")
+        precio = float(input("Precio: "))
+        return nombre, material, precio
 
 
 class MenuTienda:

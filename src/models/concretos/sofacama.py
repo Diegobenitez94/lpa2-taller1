@@ -8,6 +8,9 @@ from .cama import Cama
 
 
 class SofaCama(Sofa, Cama):
+    def __init__(self, nombre, material, precio, capacidad, tamano_cama):
+        super().__init__(nombre, material, precio, capacidad)
+        self.tamano_cama = tamano_cama
     """
     Clase que implementa herencia múltiple heredando de Sofa y Cama.
 

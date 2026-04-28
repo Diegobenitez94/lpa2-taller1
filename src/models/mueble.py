@@ -7,6 +7,20 @@ from abc import ABC, abstractmethod
 
 
 class Mueble(ABC):
+    from abc import ABC, abstractmethod
+
+class Mueble(ABC):
+    def __init__(self, nombre, material, precio):
+        self.nombre = nombre
+        self.material = material
+        self.precio = precio
+
+    @abstractmethod
+    def obtener_descripcion(self):
+        pass
+    
+    def __str__(self):
+        return f"{self.nombre} ({self.material}) - ${self.precio}"
     """
     Clase abstracta base para todos los muebles.
 

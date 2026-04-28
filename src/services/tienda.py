@@ -8,7 +8,17 @@ from typing import List, Dict, Optional, Union
 # Corrección de imports para ejecución directa
 from models.mueble import Mueble
 from models.composicion.comedor import Comedor
-# TODO: Importar las clases necesarias
+from src.services.catalogo import Catalogo
+
+class Tienda:
+    def __init__(self, nombre: str):
+        self.nombre = nombre
+        self.catalogo = Catalogo()  # Composición
+
+    def mostrar_inventario(self):
+        print(f"--- Inventario de {self.nombre} ---")
+        for m in self.catalogo.listar_muebles():
+            print(m)
 
 
 class TiendaMuebles:
