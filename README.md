@@ -1,5 +1,9 @@
 # LPA2 Taller1: Pruebas Unitarias Tienda de Muebles
 
+- ##### Nombre Estudiante: Diego Fernando Benitez Camacho
+- ##### Carrera: Ingenieria Sistemas
+- ##### Semestre: 8
+
 ![commits](https://badgen.net/github/commits/UR-CC/lpa2-taller1?icon=github) 
 ![last_commit](https://img.shields.io/github/last-commit/UR-CC/lpa2-taller1)
 
