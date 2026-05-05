@@ -1,12 +1,22 @@
-from unittest.mock import MagicMock
+import pytest
+from src.models.composicion.comedor import Comedor
+from src.models.concretos.mesa import Mesa
+from src.models.concretos.silla import Silla
 
-def test_comedor_calcula_precio_total():
-    # Simulamos componentes (Mocking)
-    mesa = MagicMock()
-    mesa.precio = 200
-    silla = MagicMock()
-    silla.precio = 50
+class TestComedor:
+    @pytest.fixture
+    def comedor_basico(self):
+        mesa = Mesa("Mesa Comedor", "Roble", 200.0, "Rectangular", 6)
+        sillas = [Silla("Silla Comedor", "Roble", 50.0, 4, "Roble") for _ in range(6)]
+        return Comedor("Comedor Familiar", mesa, sillas)
     
-    # Lógica de composición
-    precio_total = mesa.precio + (silla.precio * 4)
-    assert precio_total == 400
+    def test_composicion_correcta(self, comedor_basico):
+        assert comedor_basico.mesa is not None
+        assert len(comedor_basico.sillas) == 6
+        assert isinstance(comedor_basico.mesa, Mesa)
+        assert all(isinstance(silla, Silla) for silla in comedor_basico.sillas)
+    
+    def test_calcular_precio_total(self, comedor_basico):
+        precio_total = comedor_basico.calcular_precio()
+        precio_esperado = 200.0 + (6 * 50.0)  # Mesa + 6 sillas
+        assert precio_total == precio_esperado

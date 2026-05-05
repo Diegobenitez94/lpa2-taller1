@@ -1,6 +1,30 @@
-def test_creacion_silla(silla_base):
-    assert silla_base.nombre == "Silla Minimal"
-    assert silla_base.capacidad == 1
+import pytest
+from src.models.concretos.silla import Silla
 
-def test_descripcion_silla(silla_base):
-    assert "1 personas" in silla_base.obtener_descripcion()
+class TestSilla:
+    @pytest.fixture
+    def silla_basica(self):
+        
+        return Silla(
+            nombre="Silla Básica", 
+            material="Madera", 
+            color="Café", 
+            precio_base=50.0,
+            tiene_respaldo=True
+        )
+    
+    def test_instanciacion_correcta(self, silla_basica):
+        assert silla_basica.nombre == "Silla Básica"
+        assert silla_basica.material == "Madera"
+       
+        assert float(silla_basica.precio_base) == 50.0
+        
+    def test_calcular_precio(self, silla_basica):
+        
+        precio = silla_basica.calcular_precio()
+        assert precio == 50.0 
+    
+    def test_obtener_descripcion(self, silla_basica):
+        descripcion = silla_basica.obtener_descripcion()
+        assert "Silla Básica" in descripcion
+        assert "Madera" in descripcion
