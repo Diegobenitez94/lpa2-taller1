@@ -23,7 +23,7 @@ class Silla(Asiento):
         tiene_ruedas: bool = False,
         **kwargs,
     ):
-        # Aseguramos que el precio sea float antes de subirlo al padre
+       
         precio_numerico = float(precio_base)
         
         super().__init__(
@@ -53,13 +53,13 @@ class Silla(Asiento):
         """
         Calcula el precio final sumando los adicionales de silla.
         """
-        # Intentamos obtener el precio base procesado por el padre (con descuentos si existen)
+        
         try:
             precio = float(super().calcular_precio())
         except (AttributeError, TypeError):
             precio = self.precio_base
 
-        # Adicionales por funcionalidad
+        
         if getattr(self, '_altura_regulable', False):
             precio += 30.0
         if getattr(self, '_tiene_ruedas', False):
@@ -69,7 +69,7 @@ class Silla(Asiento):
 
     def obtener_descripcion(self) -> str:
         """Genera la descripción textual para los tests."""
-        # Usamos getattr para evitar errores si el padre no inicializó los atributos
+       
         nombre = getattr(self, 'nombre', 'Silla')
         material = getattr(self, 'material', 'N/A')
         color = getattr(self, 'color', 'N/A')
@@ -78,7 +78,7 @@ class Silla(Asiento):
         desc += f"  Material: {material}\n"
         desc += f"  Color: {color}\n"
         
-        # Info del padre
+        
         if hasattr(self, 'obtener_info_asiento'):
             desc += f"  {self.obtener_info_asiento()}\n"
             
