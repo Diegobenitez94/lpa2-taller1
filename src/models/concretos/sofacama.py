@@ -3,9 +3,9 @@ Clase SofaCama que implementa herencia múltiple.
 Esta clase hereda tanto de Sofa como de Cama.
 """
 
-from ..categorias.sofa import Sofa
-from ..categorias.cama import Cama
 
+from src.models.concretos.sofa import Sofa
+from src.models.concretos.cama import Cama
 class SofaCama(Sofa, Cama):
     """
     Clase que implementa herencia múltiple heredando de Sofa y Cama.
@@ -15,31 +15,30 @@ class SofaCama(Sofa, Cama):
         self,
         nombre: str,
         material: str,
-        color: str,
         precio_base: float,
         capacidad_personas: int = 3,
+        tamaño_colchon: str = "matrimonial",
+        color: str = "N/A",
         material_tapizado: str = "tela",
-        tamano_cama: str = "matrimonial",
         incluye_colchon: bool = True,
         mecanismo_conversion: str = "plegable",
+        **kwargs,
     ):
         # 1. Inicialización usando el primer padre en el MRO (Sofa)
-        # Sofa suele heredar de Mueble, así que pasamos los datos básicos
+        # Sofa hereda de Asiento y finalmente de Mueble.
         super().__init__(
             nombre=nombre,
             material=material,
             color=color,
-            precio=precio_base,
-            capacidad=capacidad_personas,
-            es_acolchado=True,
-            material_tapizado=material_tapizado
+            precio_base=precio_base,
+            capacidad_personas=capacidad_personas,
+            tiene_respaldo=True,
+            material_tapizado=material_tapizado,
         )
         
-        # 2. Atributos específicos de Cama (que no maneja Sofa)
-        self._tamaño = tamano_cama.lower()
+        # 2. Atributos específicos de SofaCama
+        self._tamaño_colchon = tamaño_colchon
         self._incluye_colchon = incluye_colchon
-        
-        # 3. Atributos específicos de SofaCama
         self._mecanismo_conversion = mecanismo_conversion
         self._modo_actual = "sofa"
 
@@ -62,7 +61,7 @@ class SofaCama(Sofa, Cama):
             "queen": 500,
             "king": 700
         }
-        precio_total += ajustes_tamano.get(self._tamaño, 0)
+        precio_total += ajustes_tamano.get(self._tamaño_colchon, 0)
 
         # Usar el atributo correcto con guion bajo o el property
         if self._incluye_colchon:
@@ -78,8 +77,8 @@ class SofaCama(Sofa, Cama):
 
     # --- Getters y Setters ---
     @property
-    def tamano_cama(self) -> str:
-        return self._tamaño
+    def tamaño_colchon(self) -> str:
+        return self._tamaño_colchon
 
     @property
     def modo_actual(self) -> str:
@@ -97,6 +96,13 @@ class SofaCama(Sofa, Cama):
             return "El sofá-cama ya está en modo sofá"
         self._modo_actual = "sofa"
         return f"Cama convertida a sofá usando mecanismo {self._mecanismo_conversion}"
+
+    def transformar(self, modo: str = "cama") -> str:
+        if modo.lower() == "cama":
+            return self.convertir_a_cama()
+        if modo.lower() == "sofa":
+            return self.convertir_a_sofa()
+        return "Modo de transformación no reconocido"
 
     def __str__(self) -> str:
         return f"Sofá-cama {self.nombre} (modo: {self._modo_actual})"

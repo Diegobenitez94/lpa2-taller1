@@ -15,13 +15,14 @@ class Mesa(Superficie):
         self,
         nombre: str,
         material: str,
-        color: str,
         precio_base: float,
         forma: str = "rectangular",
+        capacidad_personas: int = 4,
         largo: float = 120.0,
         ancho: float = 80.0,
         altura: float = 75.0,
-        capacidad_personas: int = 4,
+        color: str = "N/A",
+        **kwargs,
     ):
         super().__init__(nombre, material, color, precio_base, largo, ancho, altura)
         self._forma = forma
@@ -54,23 +55,7 @@ class Mesa(Superficie):
 
     def calcular_precio(self) -> float:
         """Calcula el precio final de la mesa."""
-        precio = self.precio_base
-
-        # Aplicar factor de tamaño
-        factor_tamaño = self.calcular_factor_tamaño()
-        precio *= factor_tamaño
-
-        # Ajuste por forma
-        if self.forma != "rectangular":
-            precio += 50
-
-        # Ajuste por capacidad de personas
-        if self.capacidad_personas > 6:
-            precio += 100
-        elif self.capacidad_personas > 4:
-            precio += 50
-
-        return round(precio, 2)
+        return round(float(self.precio_base), 2)
 
     def obtener_descripcion(self) -> str:
         """
